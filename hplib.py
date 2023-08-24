@@ -43,7 +43,15 @@ class Hplib:
 	def setCenterFrequency(self, hz):
 		self.ser.write(b'CF '+str(int(hz))+'HZ;DONE?;')
 		self.waitForDone()
+	
+	def setResolutionBandwidth(self, hz):
+		self.ser.write(b'RB '+str(int(hz))+'HZ;DONE?;')
+		self.waitForDone()
 
+	def setResolutionBandwidthAuto(self):
+		self.ser.write(b'RB AUTO;DONE?;')
+		self.waitForDone()
+		
 	def getSpan(self):
 		self.ser.write(b'SP?;')
 		return float(self.readline())
@@ -85,6 +93,10 @@ class Hplib:
 		else:
 			self.ser.write(b'MKPK HI;DONE?;')
 		self.waitForDone()
+
+	def markerAmplitude(self):
+		self.ser.write(b'MKA?;')
+		return float(self.readline())
 
 	def markerFrequency(self):
 		self.ser.write(b'MF;')
